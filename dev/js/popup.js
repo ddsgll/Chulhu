@@ -166,8 +166,13 @@ function Ctulhu() {
 		$.get(curRequest, function(data,status) {
 			if (status == "success")
 			{
-				var photoSrc = data.artist.image[2]["#text"];
-				photoSrc != undefined ? cur_photo.attr("src", photoSrc) : console.log("No photo");
+				if( data.artist.image != undefined) {
+					var photoSrc = data.artist.image[2]["#text"];
+					cur_photo.attr("src", photoSrc);
+				}
+				else {
+					console.log("Photo not found");
+				}
 			}
 			return;
 		});
