@@ -1,0 +1,151 @@
+body, html {
+    padding: 0px;
+    margin: 0px;
+    width: 420px;
+    height: 520px;
+    font-size: 16px;
+}
+* {
+    position: relative;
+    box-sizing: border-box;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+.cthulhu {
+    width: 100%;
+    height: 100%;
+    background: #FAFAFA;
+    padding: 0px;
+    margin: 0px;
+}
+.current {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    padding-left: 100px;
+    margin: 0;
+    background: #FFFFFF;
+    border-bottom: 1px solid #F0F0F0;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+.current__image {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+.current__image img {
+    height: 100%;
+}
+.current__artist {
+    font-size: 1.2em;
+    line-height: 1;
+    margin-bottom: 10px;
+    margin-top: 16px;
+}
+.current__title {
+    font-size: 1em;
+    line-height: 1.2;
+    color: #666666;
+}
+.opts {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    font-size: 0;
+    letter-spacing: -1;
+    background: #333333;
+    box-shadow: 0px -1px 3px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+.opts__button {
+    line-height: normal;
+    letter-spacing: normal;
+    font-size: 1em;
+    height: 100%;
+    padding: 0;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    color: #CCCCCC;
+    text-align: center;
+    box-shadow: -1px 0px 0px rgba(255,255,255,0.1);
+}
+.b-1 {
+    width: 25%;
+}
+.b-2 {
+    width: 50%;
+}
+.b-3 {
+    width: 75%;
+}
+.b-4 {
+    width: 100%;
+}
+.similars {
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+}
+.similar {
+    margin: 10px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+.similar:last-child {
+    margin-bottom: 60px;
+}
+.similar__artist {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    padding-left: 60px;
+    margin: 0;
+    background: #DDDDDD;
+}
+.similar__artist .photo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 40px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.similar__artist .photo img {
+    height: 100%;
+}
+.similar__artist .title {
+    font-size: 1.5em;
+    color: #444444;
+    display: inline-block;
+    vertical-align: middle;
+}
+.similar__songs {
+    margin-left: 49px;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-top: none;
+    padding: 10px;
+}
+.similar__songs li {
+    display: block;
+    margin-bottom: 20px;
+}
+.similar__songs li:lilast-child {
+    margin-bottom: 0px;
+}
+.similar__songs li a {
+    color: #666666;
+    font-size: 0.8em;
+    text-decoration: none;
+}

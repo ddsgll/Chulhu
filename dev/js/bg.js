@@ -17,7 +17,10 @@ function showIcon( tab ) {
 		
 		chrome.pageAction.show(_TABID);
 
-		console.log("Перешли на вк");
+		console.log("вк");
+	}
+	else {
+		console.log("не вк");
 	}
 }
 

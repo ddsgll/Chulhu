@@ -1,0 +1,68 @@
+simImage = cell * 4
+simHeight = simImage + cell * 2
+
+.similars
+	width 100%
+	height mainHeight - curHeight
+	overflow hidden
+	
+.similar
+	margin cell
+	margin-bottom cell * 2
+	padding 0
+	
+	&:last-child
+		margin-bottom optHeight + cell * 2
+
+
+
+.similar__artist
+	width 100%
+	height simHeight
+	padding cell
+	padding-left simHeight
+	margin 0
+	background #ddd
+
+
+	.photo
+		position absolute
+		top cell
+		left cell
+		height simImage
+		display inline-block
+		vertical-align middle
+
+		img
+			height 100%
+
+
+	.title
+		font-size 1.5em
+		color #444
+		display inline-block
+		vertical-align middle
+	
+
+
+.similar__songs
+	margin-left cell * 5 - 1px
+	background #fff
+	border 1px solid #ddd
+	border-top none
+	padding cell
+
+
+	li
+		display block
+		margin-bottom cell * 2
+
+		&:lilast-child
+			margin-bottom 0px
+
+
+		a
+			color #666
+			font-size 0.8em
+			text-decoration none
+		

@@ -23,7 +23,7 @@
 		"128": "128.png"
     },
     
-	"page_action": {
+	"browser_action": {
 		"default_title": "Call",
 		"default_icon": "48.png",
 		"default_popup": "popup.html"

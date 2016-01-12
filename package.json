@@ -1,0 +1,33 @@
+{
+  "name": "cthulhu",
+  "version": "1.0.0",
+  "description": "Chrome extension offering similar music from vk.com via lastfm API",
+  "main": "-",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddsgll/Cthulhu.git"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "music",
+    "vk.com",
+    "lastfm"
+  ],
+  "author": "Dead Seagull (di.ed.seagull@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ddsgll/Cthulhu/issues"
+  },
+  "homepage": "https://github.com/ddsgll/Cthulhu#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-stylus": "^2.2.0"
+  }
+}

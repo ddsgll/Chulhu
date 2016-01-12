@@ -1,0 +1,29 @@
+{
+  "name": "Cthulhu",
+  "homepage": "https://github.com/ddsgll/Cthulhu",
+  "authors": [
+    "Dead Seagull (di.ed.seagull@gmail.com)"
+  ],
+  "description": "Crome extension offering music from vk.com via lastfm API",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "chrome",
+    "extension",
+    "vk.com",
+    "music",
+    "lastfm",
+    "similar"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "underscore": "~1.8.3"
+  }
+}

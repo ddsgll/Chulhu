@@ -1,0 +1,47 @@
+mixin similar( artist )
+	.similar
+		.similar__artist
+			.photo: img(src="img/template.png", alt= artist)
+			.title= artist
+		.similar__songs
+			ul
+				li: a(href="") Song 1
+				li: a(href="") Song 2
+				li: a(href="") Song 3
+				li: a(href="") Song 4
+				li: a(href="") Song 5
+
+
+
+<!DOCTYPE html>
+html(lang="ru")
+head
+	meta(charset="UTF-8")
+	title Cthulhu
+	link(rel="stylesheet", href="css/mcscroll.min.css")
+	link(rel="stylesheet", href="css/main.css")
+body
+	.cthulhu
+		.current
+			.current__image: img(src="img/template.png", alt="Обложка не найдена")
+
+			.current__artist Cthulhu hotline...
+
+			.current__title R'lyeh wgah'nagl fhtagn
+
+
+		.similars#similars
+			+similar('Howard Lawcraft')
+			+similar('Edgar Poe')
+			+similar('Stephen King')
+			+similar('Howard Lawcraft')
+			+similar('Edgar Poe')
+
+		.opts
+			.opts__button.b-2 Создать плейлист
+
+
+	script(src="js/jquery.js")
+	script(src="js/underscore.js")
+	script(src="js/mcscroll.js")
+	script(src="js/popup.js")
