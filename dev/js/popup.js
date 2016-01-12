@@ -38,6 +38,8 @@ function Offer(artist, image) {
 
 	this.render = function() {
 
+		var that = this;
+
 		var parent = this.simParentBlock;
 		var htmlString = "";
 
@@ -47,7 +49,7 @@ function Offer(artist, image) {
 
 		_.each( this.songs, function(el) {
 			
-			htmlString += "<li><a href=''>" + el + "</a></li>";
+			htmlString += "<li><a target='_blank' href='http://vk.com/search?c%5Bq%5D=" + that.artist + "%20%E2%80%93%20" + el + "&c%5Bsection%5D=audio'>" + el + "</a></li>";
 
 		});
 
