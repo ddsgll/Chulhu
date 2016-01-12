@@ -1,0 +1,31 @@
+{
+    "manifest_version": 2,
+
+    "name": "Chtulhu",
+    "version": "1.0",
+    "permissions": [
+    	"activeTab",
+    	"tabs",
+        "http://*/*",
+        "https://*/*"
+    ],
+
+    "content_scripts": [{
+        "matches": ["*://vk.com/*"],
+        "js": ["js/content.js", "js/jquery.js"]
+    }],
+
+    "background": {
+        "page": "background.html"
+    },
+
+    "icons": {
+		"128": "128.png"
+    },
+    
+	"page_action": {
+		"default_title": "Call",
+		"default_icon": "48.png",
+		"default_popup": "popup.html"
+	}
+}
