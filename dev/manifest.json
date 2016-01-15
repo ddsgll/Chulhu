@@ -3,11 +3,16 @@
 
     "name": "Chtulhu",
     "version": "1.0",
+
+    "content_security_policy": "script-src 'self' https://vk.com; object-src 'self'",
+
     "permissions": [
+        "contextMenus",
     	"activeTab",
     	"tabs",
         "http://*/*",
-        "https://*/*"
+        "https://*/*",
+        "https://vk.com/*"
     ],
 
     "content_scripts": [{

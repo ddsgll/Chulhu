@@ -40,8 +40,15 @@ body
 		.opts
 			.opts__button.b-2 Создать плейлист
 
+		.btn#login_button(onclick="VK.Auth.login(authInfo);")
+
+
+
+	script(src="https://vk.com/js/api/openapi.js")
 
 	script(src="js/jquery.js")
 	script(src="js/underscore.js")
 	script(src="js/mcscroll.js")
+
 	script(src="js/popup.js")
+	script(src="js/vk.js")

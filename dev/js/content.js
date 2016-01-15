@@ -11,20 +11,28 @@ function getMusic() {
 	var pd_artist = document.querySelector("#pd_performer");
 	var pd_title  = document.querySelector("#pd_title");
 
-	if (gp_artist != null  &&  gp_title != null)
+	var ai_artist = document.querySelector(".ai_current .ai_artist");
+	var ai_title  = document.querySelector(".ai_current .ai_title");
+
+	if (gp_artist != undefined  &&  gp_title != undefined)
 	{
 		artist = gp_artist.innerHTML;
 		title  = gp_title.innerHTML;
 	}
-	else if (ac_artist != null  &&  ac_title != null)
+	else if (ac_artist != undefined  &&  ac_title != undefined)
 	{
 		artist = ac_artist.innerHTML;
 		title  = ac_title.innerHTML;
 	}
-	else if (pd_artist != null  &&  pd_title != null)
+	else if (pd_artist != undefined  &&  pd_title != undefined)
 	{
 		artist = pd_artist.innerHTML;
 		title  = pd_title.innerHTML;
+	}
+	else if (ai_artist != undefined  &&  ai_title != undefined)
+	{
+		artist = ai_artist.innerHTML;
+		title  = ai_title.innerHTML;
 	}
 	else {
 		return false;
@@ -35,7 +43,7 @@ function getMusic() {
 
 
 	if ( artist && title ) {
-		// console.log("Playing: " + artist + " — " + title);
+		console.log("Playing: " + artist + " — " + title);
 		return {artist: artist, title: title};
 	}
 	else {
