@@ -34,7 +34,6 @@ gulp.task('watch', function() {
 
 	gulp.watch('source/stylus/*.styl', ['stylus']);
 	gulp.watch('source/jade/*.jade',   ['jade'  ]);
-	notify( {title: "GULP", message: "Wathig files.."} );
 
 });
 

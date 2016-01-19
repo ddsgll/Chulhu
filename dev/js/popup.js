@@ -1,4 +1,5 @@
 var api = "dc53d99ee0a45cb91d54c65d704b2185";
+function chk(n) {console.log(n);}
 
 /*** Offer ***
 Music offer class
@@ -21,11 +22,23 @@ Music offer class
 ***********/
 function Offer(artist, image) {
 
-	this.artist         = artist
-	this.image          = image
-	this.songs          = []
-	this.simParentBlock = $("#similars")
-	this.limit  = 5
+	this.artist = artist;
+	this.image  = image;
+	this.songs  = [];
+	this.limit  = 5;
+
+	this.template = _.template(
+    '<div class="similar">' +
+        '<div class="similar__artist">' +
+            '<div class="photo"><img src="<%= image %>" alt="<%= artist %>"/></div>' +
+            '<div class="title"><%= artist %></div>' +
+        '</div>' +
+        '<div class="similar__songs">' +
+            '<ul>' +
+                '<%= songlist %>' +
+            '</ul>' +
+        '</div>' +
+    '</div>');
 
 
 
@@ -35,15 +48,15 @@ function Offer(artist, image) {
 			this.songs.push( song );
 
 		else
-			console.warn("Song already exists")
+			console.warn("Song already exists");
 	
-	}
+	};
 
 
 
 	this.isNewSong = function(song) {
 		return true;
-	}
+	};
 
 
 
@@ -52,7 +65,7 @@ function Offer(artist, image) {
 
 		_.each( this.songs, function(el) {
 			
-			if (el != null && el != undefined && el != "")
+			if (el !== null && el !== undefined && el !== "")
 			{
 				console.log("-> " + el);
 			}
@@ -60,35 +73,49 @@ function Offer(artist, image) {
 		});
 
 		console.log("_______________");
-	}
+	};
+
+
+	this.getHtmlTemplate = function() {
+		var that = this;
+
+		_.each(this.songs, function(el) {
+			that.songlist += '<li><a href="http://vk.com/search?c%5Bq%5D=' + that.artist + '%20%E2%80%93%20' + el + '&c%5Bsection%5D=audio">' + el + '</a></li>';
+			chk(that.songlist);
+		});
+
+		var string = this.template(this);
+
+		return string;
+	};
 
 
 
-	this.fillSongs = function() {
+	this.fillSongs = function(callback) {
 
 		var that = this;
 
-		var topSongs =
+		var request =
 			"http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks" +
-			"&limit=" 	+ limit +
+			"&limit=" 	+ this.limit  +
 			"&artist=" 	+ this.artist +
-			"&api_key=" + api +
+			"&api_key=" + api 		  +
 			"&format=json";
 
-		$.get( topSongs, function(data, status) {
-
+		$.ajax({
+			method: 'get',
+			   url: request
+		})
+		.done(function(data) {
 			var songsData = data.toptracks.track;
 
 			_.each( songsData, function(el) {
-
 				that.addSong( el.name );
-
 			});
 
-			that.debug();
-
+			callback(that);
 		});
-	}
+	};
 }
 
 
@@ -115,90 +142,90 @@ Main application class
 @var global 'cur_title'  {jquery} – jquery element for current playing song's title
 @var global 'cur_photo'  {jquery} – jquery element for current playing song's artist's photo
 
-@method 'setLimit' 			– sets limit of similar artists
-@method 'getCurrentSong' 	– returns current playing song ––return {object}
 @method 'setCurrentSong' 	– replace this.currentSong with new song object
+@method 'setCurrentArtist' 	– getting photo and tags from lastfm and create new object to this.currentSong
 @method 'updateCurrent' 	– updates info about current playing song in popup.html
-@method 'setCurrentPhoto' 	– getting photo from lastfm and set it into popup.html
+
 @method 'getTopGroups' 		– getting top groups from lastfm and append them into this.similars
 
 @return {object} Offer object
 ***********/
 function App() {
-
+	
 	this.limit       = 5;
-	this.similars    = [];
 	this.offers      = [];
-	this.currentSong = {}
+	this.similars    = [];
+	this.currentSong = {
+		artist: '',
+		title: ''
+	};
 
 
 	var
 		cur_artist = $(".current__artist"),
 		cur_title  = $(".current__title"),
-		cur_photo  = $(".current__image img");
+		cur_photo  = $(".current__image img"),
+
+		sim_block  = document.querySelector("#similars");
 
 
 
-	this.setLimit = function(lim) {
-		this.limit = lim;
-	}
-
-
-
-	this.getCurrentSong = function() {
-		return this.currentSong;
-	}
-
-
-
-	this.setCurrentSong = function( data ) {
-		if (this.currentSong !== data)
+	this.setCurrentSong = function(data) {
+		if (this.currentSong.artist !== data.artist || this.currentSong.title !== data.title )
 		{
-			this.currentSong = data;
-			this.updateCurrent();
+			this.setCurrentArtist( data.artist, data.title );
 		}
-	}
+	};
+
+
+
+	this.setCurrentArtist = function(name, song) {
+		var request =
+			"http://ws.audioscrobbler.com/2.0/?method=artist.getinfo" +
+			"&artist="  + name +
+			"&api_key=" + api  +
+			"&format=json";
+
+		var that = this;
+
+		$.ajax({
+			method: "get",
+			   url: request
+		})
+		.done(function(data) {
+
+			var art = {
+				artist: name,
+				 title: song,
+				 image: data.artist.image[2]["#text"],
+				  tags: []
+			};
+
+			for (var i = 0; i < that.limit; i++)
+			{
+				var tag = data.artist.tags.tag[i].name;
+				art.tags.push(tag);
+			}
+
+			that.currentSong = art;
+			that.updateCurrent();
+
+		});
+	};
 
 
 
 	this.updateCurrent = function() {
-
-		var otherArtist = cur_artist.text() != this.currentSong.artist
+		var otherArtist = cur_artist.text() != this.currentSong.artist;
 		var otherTitle  = cur_title.text()  != this.currentSong.title;
 
 		if (otherArtist || otherTitle)
 		{
-			cur_artist.html( this.currentSong.artist );
-		 	 cur_title.html( this.currentSong.title  );
-			
-			this.setCurrentPhoto();
+			cur_artist.html(this.currentSong.artist 	 );
+		 	 cur_title.html(this.currentSong.title  	 );
+			 cur_photo.attr("src", this.currentSong.image);
 		}
-
-	}
-
-
-
-	this.setCurrentPhoto = function() {
-		var curRequest = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + this.currentSong.artist + "&api_key=" + api + "&format=json";
-
-		$.get(curRequest, function(data,status) {
-			if (status == "success")
-			{
-				if( data.artist.image != undefined)
-				{
-					var photoSrc = data.artist.image[2]["#text"];
-					cur_photo.attr("src", photoSrc);
-				}
-				else
-				{
-					console.log("Photo not found");
-				}
-			}
-			return;
-		});
-
-		this.getTopGroups();
-	}
+	};
 
 
 
@@ -206,37 +233,40 @@ function App() {
 
 		var that = this;
 
-		var topRequest =
+		var request =
 			"http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar" + 
 			"&artist=" 	+ this.currentSong.artist +
-			"&limit=" 	+ that.limit +
-			"&api_key=" + api +
+			"&limit=" 	+ this.limit 			  +
+			"&api_key=" + api 					  +
 			"&format=json";
 
-		$.get( topRequest, function(data, status) {
-
+		$.ajax({
+			method: 'get',
+			   url: request
+		})
+		.done(function(data) {
 			that.similars = data.similarartists.artist;
-			setGroups( that.similars );
 
-		});
-
-		function setGroups( groups ) {
-
-			_.each(groups, function(el, ind) {
+			_.each(that.similars, function(el, ind) {
 
 				var tArtist = el.name;
 				var tImage  = el.image[1]["#text"];
 
-				var offer = new Offer( tArtist, tImage );
+				var offer = new Offer(tArtist, tImage);
 
-				offer.fillSongs();
+				offer.fillSongs(function(offer) {
+					var htmlString = offer.getHtmlTemplate();
+
+					sim_block.innerHTML += htmlString;
+				});
 
 			});
+		});
+	};
 
-		}
-	}
 
 }
+
 
 var app = new App();
 
@@ -245,6 +275,9 @@ var app = new App();
 
 $(window).load( function() {
 
+
+
+	// Getting current playing song on vk
 	window.setInterval( function() {
 
 		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -258,9 +291,11 @@ $(window).load( function() {
 			});
 		});
 
-	}, 500 );
+	}, 1000 );
 
 
+
+	// jQUery plug-ins
 	$("#similars").mCustomScrollbar({
 					theme: 'dark-2',
 		scrollbarPosition: 'inside'
