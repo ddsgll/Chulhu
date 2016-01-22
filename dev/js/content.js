@@ -52,20 +52,17 @@ function getMusic() {
 	}
 }
 
-window.onload = function() {
 
-	chrome.runtime.onMessage.addListener(
-		function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse) {
 
-			if (request.method == "getMusic")
-			{
-				var data = getMusic();
-				sendResponse({status: "ready", data: data});
-			}
-
+		if (request.method == "getMusic")
+		{
+			var data = getMusic();
+			sendResponse({status: "ready", data: data});
 		}
-	);
 
-	window.setInterval( getMusic, 1000 );
+	}
+);
 
-}
+window.setInterval( getMusic, 1000 );

@@ -297,10 +297,43 @@ $(window).load( function() {
 
 });
 
+
+// Interaction
 var top5 = document.querySelector("#topfive");
+var plst = document.querySelector("#playlist");
 
 top5.onclick = function(e) {
-
 	app.getTopGroups();
+}
+
+plst.onclick = function(e) {
+
+	$.ajax({
+		url: 'https://oauth.vk.com/authorize?client_id=5237280&display=popup&redirect_uri=http://vk.com&scope=8&response_type=token&v=5.44',
+		method: 'get',
+		success: function(data) {
+			console.log(data);
+		}
+	});
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

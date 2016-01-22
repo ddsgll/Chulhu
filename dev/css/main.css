@@ -21,6 +21,7 @@ ul {
     margin: 0px;
 }
 .button {
+    display: inline-block;
     padding: 4px 12px;
     text-align: center;
     font-size: 14px;
@@ -28,7 +29,8 @@ ul {
     border: 1px solid;
     border-radius: 4px;
     cursor: pointer;
-    margin: 10px;
+    margin: 0 0 10px 10px;
+    width: 28%;
 }
 .current {
     width: 100%;

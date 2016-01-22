@@ -8,29 +8,31 @@
 
     "permissions": [
         "contextMenus",
-    	"activeTab",
-    	"tabs",
+        "activeTab",
+        "tabs",
         "http://*/*",
         "https://*/*",
-        "https://vk.com/*"
+        "https://vk.com/*",
+        "declarativeContent"
     ],
 
     "content_scripts": [{
         "matches": ["*://vk.com/*"],
-        "js": ["js/content.js", "js/jquery.js"]
+        "js"     : ["js/content.js", "js/jquery.js"]
     }],
 
     "background": {
-        "page": "background.html"
+        "page"      : "background.html",
+        "persistent": false
     },
 
     "icons": {
 		"128": "128.png"
     },
     
-	"browser_action": {
-		"default_title": "Call",
-		"default_icon": "48.png",
-		"default_popup": "popup.html"
+	"page_action": {
+        "default_title": "Call",
+        "default_icon" : "48.png",
+        "default_popup": "popup.html"
 	}
 }
