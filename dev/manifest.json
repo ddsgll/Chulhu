@@ -4,7 +4,7 @@
     "name": "Chtulhu",
     "version": "1.0",
 
-    "content_security_policy": "script-src 'self' https://vk.com; object-src 'self'",
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://vk.com; object-src 'self'",
 
     "permissions": [
         "contextMenus",

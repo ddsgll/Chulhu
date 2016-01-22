@@ -80,8 +80,10 @@ function Offer(artist, image) {
 		var that = this;
 
 		_.each(this.songs, function(el) {
-			that.songlist += '<li><a href="http://vk.com/search?c%5Bq%5D=' + that.artist + '%20%E2%80%93%20' + el + '&c%5Bsection%5D=audio">' + el + '</a></li>';
-			chk(that.songlist);
+			that.songlist +=
+			'<li><a target="_blank" href="http://vk.com/search?c%5Bq%5D=' + that.artist +
+			'%20%E2%80%93%20' + el +
+			'&c%5Bsection%5D=audio">' + el + '</a></li>';
 		});
 
 		var string = this.template(this);
@@ -257,9 +259,8 @@ function App() {
 				offer.fillSongs(function(offer) {
 					var htmlString = offer.getHtmlTemplate();
 
-					sim_block.innerHTML += htmlString;
+					sim_block.innerHTML += htmlString.replace("undefined", "");
 				});
-
 			});
 		});
 	};
@@ -294,11 +295,12 @@ $(window).load( function() {
 	}, 1000 );
 
 
-
-	// jQUery plug-ins
-	$("#similars").mCustomScrollbar({
-					theme: 'dark-2',
-		scrollbarPosition: 'inside'
-	});
-
 });
+
+var top5 = document.querySelector("#topfive");
+
+top5.onclick = function(e) {
+
+	app.getTopGroups();
+
+}
